@@ -1,3 +1,4 @@
-import {RUN_STATES} from '../../constants/enums.js';
+import {RUN_STATES,MERGE_STATES} from '../../constants/enums.js';
 import {esc} from '../../utils/html.js';
-export const badge=value=>`<span class="badge ${esc(value)}">${esc(RUN_STATES[value]||value)}</span>`;
+const LABELS={...RUN_STATES,...MERGE_STATES};
+export const badge=value=>`<span class="badge ${esc(value)}">${esc(LABELS[value]||value)}</span>`;

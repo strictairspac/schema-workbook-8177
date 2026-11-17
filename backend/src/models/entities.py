@@ -15,6 +15,13 @@ class Report(Base):
     id=Column(Integer,primary_key=True);name=Column(String(120),nullable=False);relation_id=Column(Integer,ForeignKey('relations.id'),nullable=False)
     status=Column(String(20),nullable=False,default='queued');input_snapshot=Column(JSON,nullable=False);result=Column(JSON,nullable=True);error=Column(Text,nullable=True)
     created_at=Column(DateTime(timezone=True),default=lambda:datetime.now(timezone.utc))
+class Merge(Base):
+    __tablename__='merges'
+    id=Column(Integer,primary_key=True);name=Column(String(120),nullable=False);relation_id=Column(Integer,ForeignKey('relations.id'),nullable=False)
+    base_snapshot=Column(JSON,nullable=False);left_snapshot=Column(JSON,nullable=False);right_snapshot=Column(JSON,nullable=False)
+    precheck=Column(JSON,nullable=True);status=Column(String(20),nullable=False,default='pending');target_fingerprint=Column(String(64),nullable=False,default='')
+    created_by=Column(String(120),nullable=False)
+    created_at=Column(DateTime(timezone=True),default=lambda:datetime.now(timezone.utc));updated_at=Column(DateTime(timezone=True),default=lambda:datetime.now(timezone.utc));merged_at=Column(DateTime(timezone=True),nullable=True)
 class Audit(Base):
     __tablename__='audit_logs'
     id=Column(Integer,primary_key=True);actor=Column(String(120),nullable=False);action=Column(String(160),nullable=False);created_at=Column(DateTime(timezone=True),default=lambda:datetime.now(timezone.utc))
